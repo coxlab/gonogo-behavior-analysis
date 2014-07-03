@@ -473,7 +473,6 @@ if __name__ == '__main__':
         ax1.fill_between(xvals, targprob_lowerbound, 1.0, facecolor='gray', \
                 edgecolor='None', alpha=0.50, interpolate=True)
 
-
         # ax2:  plot adjusted outcome performance:
         xvals = range(1, nSessions + 1)
         yvals = zip(*adj_performance_vect)
@@ -573,3 +572,34 @@ if __name__ == '__main__':
 
         plt.savefig('summary.png')
         plt.close('all')
+
+        #make separate discriminability index and bias figure, cleaner way to visualize the data
+
+        fig, ax_arr = plt.subplots(2, 1, sharex=True)
+        fig.suptitle(animal + " discriminability index (d') and bias")
+
+        #get d' and bias for all sessions in a list
+        d_prime_all_sessions = []
+        bias_all_sessions = []
+        xvals = range(1, nSessions + 1)
+        yvals= zip(*performance_vect)
+        hits, false_alarms = yvals[0], yvals[2]
+        index = 0
+        while index < len(hits):
+            d_prime = hits[index] - false_alarms[index]
+            d_prime_all_sessions.append(d_prime)
+            bias = ((false_alarms[index])/(1.0 - d_prime)) - 0.5
+            bias_all_sessions.append(bias)
+            index += 1
+        #plot results
+        ax_arr[0].plot(xvals, d_prime_all_sessions, "go")
+        ax_arr[0].set_xlim(0, len(hits))
+        ax_arr[0].set_ylabel("Discriminability index (d')")
+
+        ax_arr[1].plot(xvals, bias_all_sessions, "bo")
+        ax_arr[1].set_xlim(0, len(hits))
+        ax_arr[1].set_ylabel("Bias")
+        ax_arr[1].set_xlabel("Session number")
+
+        plt.show()
+        plt.close("all")
