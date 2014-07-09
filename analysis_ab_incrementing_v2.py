@@ -582,7 +582,7 @@ if __name__ == '__main__':
         d_prime_all_sessions = []
         bias_all_sessions = []
         xvals = range(1, nSessions + 1)
-        yvals= zip(*performance_vect)
+        yvals= zip(*adj_performance_vect)
         hits, false_alarms = yvals[0], yvals[2]
         index = 0
         while index < len(hits):
