@@ -594,10 +594,12 @@ if __name__ == '__main__':
         #plot results
         ax_arr[0].plot(xvals, d_prime_all_sessions, "go")
         ax_arr[0].set_xlim(0, len(hits))
+        ax_arr[0].set_ylim(-0.3, 1.0)
         ax_arr[0].set_ylabel("Discriminability index (d')")
 
         ax_arr[1].plot(xvals, bias_all_sessions, "bo")
         ax_arr[1].set_xlim(0, len(hits))
+        ax_arr[1].set_ylim(-0.5, 1.5)
         ax_arr[1].set_ylabel("Bias")
         ax_arr[1].set_xlabel("Session number")
 
